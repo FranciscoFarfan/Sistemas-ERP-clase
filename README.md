@@ -97,4 +97,18 @@ flowchart LR
 
   linkStyle 16,17,18,19,20,21 stroke:#4c1d95,stroke-width:2px,stroke-linecap:round;
 
+  %% Flechas rojas: flujo financiero y contable
+  ChartOfAccounts --> GeneralLedgerAccounts
+  GeneralLedgerAccounts --> GLAccountDetermination
+  GLAccountDetermination --> CostAccounting
+  CostAccounting --> JournalEntries
+  JournalEntries --> FinancialPostings
+  APInvoice --> APAR
+  APAR --> CashManagement
+  CashManagement --> Reconciliation
+  Reconciliation --> FinancialReporting
+  ReceiptFromProduction --> ProductReporting
+
+  linkStyle 22,23,24,25,26,27,28,29,30,31 stroke:#dc2626,stroke-width:2px,stroke-linecap:round;
+
 
