@@ -19,6 +19,15 @@ flowchart LR
   ServiceContract((Service Contract))
   ServiceBilling((Service Billing))
 
+  %% Columna: CustomerEquipmentCard, ItemMaster, WarehouseManagement, SalesOrder, PurchaseOrder, ProductionOrder, DemandPlanning, BackorderReporting
+  CustomerEquipmentCard --- ItemMaster
+  ItemMaster --- WarehouseManagement
+  WarehouseManagement --- SalesOrder
+  SalesOrder --- PurchaseOrder
+  PurchaseOrder --- ProductionOrder
+  ProductionOrder --- DemandPlanning
+  DemandPlanning --- BackorderReporting
+
   ItemMaster((Item Master))
   WarehouseManagement((Warehouse Management))
 
@@ -113,7 +122,6 @@ flowchart LR
   linkStyle 22,23,24,25,26,27,28,29,30,31 stroke:#dc2626,stroke-width:2px,stroke-linecap:round;
 
   %% Flechas rosadas: reportes operativos y financieros
-  DemandPlanning --> BackorderReporting
   BackorderReporting --> InventoryAuditReport
   InventoryAuditReport --> AccountBalancesReport
   AccountBalancesReport --> ProductReporting
