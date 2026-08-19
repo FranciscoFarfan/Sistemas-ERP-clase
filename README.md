@@ -76,16 +76,16 @@ flowchart LR
 
   linkStyle 0,1,2,3 stroke:#22c55e,stroke-width:2px,stroke-linecap:round;
 
-  %% Línea punteada amarilla
+  %% Línea amarilla sólida horizontal
+  Customer --> Opportunity
+  Opportunity --> Pricing
+  Pricing --> SalesQuotationCRM
+  SalesQuotationCRM --> SalesOrder
+  SalesOrder --> DeliveryNote
+  DeliveryNote --> ARInvoice
+  ARInvoice --> IncomingPayments
 
-  Customer -.-> Opportunity
-  Opportunity -.-> Pricing
-  Pricing -.-> SalesQuotationCRM
-  SalesQuotationCRM -.-> SalesOrder
-  SalesOrder -.-> DeliveryNote
-  DeliveryNote -.-> ARInvoice
-  ARInvoice -.-> IncomingPayments
-
+  linkStyle 5,6,7,8,9,10,11 stroke:#facc15,stroke-width:2px,stroke-linecap:round;
 
   Lead --> Opportunity
   PurchaseRequest --> PurchaseQuotation
