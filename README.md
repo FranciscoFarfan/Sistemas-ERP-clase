@@ -102,7 +102,8 @@ flowchart LR
   GeneralLedgerAccounts --> GLAccountDetermination
   GLAccountDetermination --> CostAccounting
   CostAccounting --> JournalEntries
-  JournalEntries --> FinancialPostings
+  JournalEntries --> ReceiptFromProduction
+  ReceiptFromProduction ---> APInvoice
   APInvoice --> APAR
   APAR --> CashManagement
   CashManagement --> Reconciliation
@@ -110,5 +111,15 @@ flowchart LR
   ReceiptFromProduction --> ProductReporting
 
   linkStyle 22,23,24,25,26,27,28,29,30,31 stroke:#dc2626,stroke-width:2px,stroke-linecap:round;
+
+  %% Flechas rosadas: reportes operativos y financieros
+  DemandPlanning --> BackorderReporting
+  BackorderReporting --> InventoryAuditReport
+  InventoryAuditReport --> AccountBalancesReport
+  AccountBalancesReport --> ProductReporting
+  ProductReporting --> FinancialReporting
+
+  linkStyle 32,33,34,35,36 stroke:#ec4899,stroke-width:2px,stroke-linecap:round;
+
 
 
