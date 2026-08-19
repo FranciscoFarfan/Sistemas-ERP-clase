@@ -59,16 +59,7 @@ flowchart LR
   Reconciliation((Reconciliation))
   FinancialReporting((Financial Reporting))
 
-  %% Línea sólida verde en una sola columna
-  subgraph GreenColumn[ ]
-    direction TB
-    Activities((Activities))
-    Customer((Customer))
-    Lead((Lead))
-    Supplier((Supplier))
-    BusinessPartnerMaster((Business Partner Master))
-  end
-
+  %% Línea sólida verde
   Activities --> Customer
   Customer --> Lead
   Lead --> Supplier
@@ -85,7 +76,7 @@ flowchart LR
   DeliveryNote --> ARInvoice
   ARInvoice --> IncomingPayments
 
-  linkStyle 5,6,7,8,9,10,11 stroke:#facc15,stroke-width:2px,stroke-linecap:round;
+  linkStyle 4,5,6,7,8,9,10 stroke:#facc15,stroke-width:2px,stroke-linecap:round;
 
   Lead --> Opportunity
   PurchaseRequest --> PurchaseQuotation
@@ -140,20 +131,3 @@ flowchart LR
   Reconciliation --> FinancialReporting
   FinancialReporting --> ProductReporting
 
-  classDef crm fill:#c8e6c9,stroke:#4caf50,stroke-width:2px,color:#0d2b0f
-  classDef service fill:#fff9c4,stroke:#f5e642,stroke-width:2px,color:#4d4300
-  classDef sales fill:#ffe0b2,stroke:#ff9800,stroke-width:2px,color:#4d2c00
-  classDef inventory fill:#e0e0e0,stroke:#9e9e9e,stroke-width:2px,color:#242424
-  classDef purchasing fill:#bbdefb,stroke:#2196f3,stroke-width:2px,color:#062a4d
-  classDef finance fill:#ffcdd2,stroke:#f44336,stroke-width:2px,color:#4d0f0a
-  classDef production fill:#d1c4e9,stroke:#4a148c,stroke-width:2px,color:#2a0a4d
-  classDef reporting fill:#f3e5f5,stroke:#ce93d8,stroke-width:2px,color:#3a1245
-
-  class Activities,Customer,Lead,Supplier,BusinessPartnerMaster,Opportunity,Pricing,SalesQuotationCRM,CustomerEquipmentCard crm
-  class ServiceCall,ServiceContract,ServiceBilling service
-  class SalesOrder,DeliveryNote,ARInvoice,IncomingPayments sales
-  class ItemMaster,WarehouseManagement inventory
-  class PurchaseRequest,PurchaseQuotation,PurchaseOrder,GoodsReceiptPO,APInvoice,OutgoingPayments purchasing
-  class FinancialPostings,JournalEntries,APAR,CashManagement,Reconciliation,FinancialReporting,CostAccounting,ChartOfAccounts,GeneralLedgerAccounts,GLAccountDetermination finance
-  class Sourcing,ProductionOrder,IssueToProduction,ReceiptFromProduction,ProductReporting,MaterialRequirementsPlanning,BillOfMaterials production
-  class DemandPlanning,BackorderReporting,InventoryAuditReport,AccountBalancesReport reporting
