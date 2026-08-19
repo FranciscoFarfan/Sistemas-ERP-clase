@@ -59,7 +59,7 @@ flowchart LR
   Reconciliation((Reconciliation))
   FinancialReporting((Financial Reporting))
 
-  %% Línea sólida verde
+  %% Flechas verdes: relación base en columna
   Activities --> Customer
   Customer --> Lead
   Lead --> Supplier
@@ -67,7 +67,7 @@ flowchart LR
 
   linkStyle 0,1,2,3 stroke:#22c55e,stroke-width:2px,stroke-linecap:round;
 
-  %% Línea amarilla sólida horizontal
+  %% Flechas amarillas: flujo horizontal a la derecha
   Customer --> Opportunity
   Opportunity --> Pricing
   Pricing --> SalesQuotationCRM
