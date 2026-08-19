@@ -1,5 +1,5 @@
 # Sistemas-ERP-clase
-´´´mermaid
+```mermaid
 ---
 config:
   layout: elk
