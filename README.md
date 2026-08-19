@@ -59,7 +59,16 @@ flowchart LR
   Reconciliation((Reconciliation))
   FinancialReporting((Financial Reporting))
 
-  %% Línea sólida verde
+  %% Línea sólida verde en una sola columna
+  subgraph GreenColumn[ ]
+    direction TB
+    Activities((Activities))
+    Customer((Customer))
+    Lead((Lead))
+    Supplier((Supplier))
+    BusinessPartnerMaster((Business Partner Master))
+  end
+
   Activities --> Customer
   Customer --> Lead
   Lead --> Supplier
