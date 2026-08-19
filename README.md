@@ -59,15 +59,19 @@ flowchart LR
   Reconciliation((Reconciliation))
   FinancialReporting((Financial Reporting))
 
+  ####### verde
+
   Activities --- Customer
   Customer --- Lead
   Lead --- Supplier
   Supplier --- BusinessPartnerMaster
 
+####### amarillo
+
   Customer -.-> Opportunity
   Opportunity -.-> Pricing
   Pricing -.-> SalesQuotationCRM
-  SalesQuotationCRM -.-> CustomerEquipmentCard
+  SalesQuotationCRM -.-> SalesOrder
   Supplier -.-> CustomerEquipmentCard
 
   CustomerEquipmentCard -.-> ServiceCall
