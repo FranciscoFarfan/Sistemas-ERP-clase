@@ -78,56 +78,13 @@ flowchart LR
 
   linkStyle 4,5,6,7,8,9,10 stroke:#facc15,stroke-width:2px,stroke-linecap:round;
 
-  Lead --> Opportunity
+  %% Flechas azules: flujo de compras
   PurchaseRequest --> PurchaseQuotation
   PurchaseQuotation --> PurchaseOrder
-  SalesOrder --- PurchaseOrder
   PurchaseOrder --> GoodsReceiptPO
   GoodsReceiptPO --> APInvoice
   APInvoice --> OutgoingPayments
-  APInvoice -.-> APAR
 
-  CustomerEquipmentCard -.-> ServiceCall
-  ServiceCall -.-> ServiceContract
-  ServiceContract -.-> ServiceBilling
-  ServiceBilling -.-> FinancialPostings
+  linkStyle 11,12,13,14,15 stroke:#3b82f6,stroke-width:2px,stroke-linecap:round;
 
-  CustomerEquipmentCard --> ItemMaster
-  ItemMaster --> WarehouseManagement
-  ItemMaster --> SalesOrder
-
-  Customer --> SalesOrder
-  SalesOrder --> DeliveryNote
-  DeliveryNote --> ARInvoice
-  ARInvoice --> IncomingPayments
-  ARInvoice -.-> APAR
-
-  
-
-  Supplier --> Sourcing
-  Sourcing --> ProductionOrder
-  PurchaseOrder --- ProductionOrder
-  ProductionOrder --> IssueToProduction
-  IssueToProduction --> ReceiptFromProduction
-  ReceiptFromProduction --> ProductReporting
-
-  Sourcing --> MaterialRequirementsPlanning
-  MaterialRequirementsPlanning --> DemandPlanning
-  ProductionOrder -.-> DemandPlanning
-  DemandPlanning -.-> BackorderReporting
-
-  BillOfMaterials -.-> ChartOfAccounts
-  ChartOfAccounts --- GeneralLedgerAccounts
-  GeneralLedgerAccounts --- GLAccountDetermination
-  GLAccountDetermination --- CostAccounting
-  CostAccounting --> JournalEntries
-  JournalEntries --> FinancialPostings
-  JournalEntries --> InventoryAuditReport
-  InventoryAuditReport --> AccountBalancesReport
-  AccountBalancesReport --> FinancialReporting
-
-  APAR --> CashManagement
-  CashManagement --> Reconciliation
-  Reconciliation --> FinancialReporting
-  FinancialReporting --> ProductReporting
 
