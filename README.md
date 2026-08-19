@@ -4,45 +4,134 @@
 config:
   layout: elk
 ---
-flowchart TB
-    Activities(("Activities")) ---- Customer(("Customer"))
-    Customer --- Opportunity(("Opportunity")) & Lead(("Lead"))
-    Customer ---- EquipmentCard(("Equipment Card"))
-    Lead --- Supplier(("Supplier")) & Opportunity
-    Supplier --- PurchaseQuotation(("Purchase Quotation")) & BusinessPartnerMaster(("Business Partner<br>Master"))
-    Opportunity --- Pricing(("Pricing"))
-    Pricing --- ItemMaster(("Item Master")) & SalesQuotation(("Sales Quotation"))
-    SalesQuotation --- SalesOrder(("Sales Order"))
-    SalesOrder --- DeliveryNote(("Delivery Note")) & WarehouseManagement(("Warehouse<br>Management"))
-    WarehouseManagement --- PurchaseOrder(("Purchase Order")) & ItemMaster
-    PurchaseOrder ---- ProductionOrder(("Production Order")) & GoodsReceiptPO(("Goods Receipt PO")) & Sourcing(("Sourcing")) & PurchaseQuotation
-    PurchaseQuotation --- PurchaseRequest(("Purchase Request"))
-    ItemMaster --- EquipmentCard
-    EquipmentCard --- ServiceCall(("Service Call"))
-    ServiceCall --- ServiceContract(("Service Contract"))
-    ServiceContract --- ServiceBilling(("Service Billing"))
-    Sourcing --- ProductionOrder
-    Sourcing ---- MaterialRequirementsPlanning(("Material Requirements<br>Planning"))
-    MaterialRequirementsPlanning ---> BillOfMaterials(("Bill of Materials"))
-    BillOfMaterials --- DemandPlanning(("Demand Planning"))
-    ProductionOrder --- DemandPlanning & BackorderReporting(("Backorder<br>Reporting")) & IssueToProduction(("Issue to Production"))
-    DemandPlanning --- BackorderReporting
-    BackorderReporting --- InventoryAuditReport(("Inventory Audit<br>Report"))
-    InventoryAuditReport --- IssueToProduction & AccountBalancesReport(("Account Balances<br>Report"))
-    AccountBalancesReport --- ReceiptFromProduction(("Receipt from Production")) & ProductReporting(("Product<br>Reporting"))
-    DeliveryNote --- ARInvoice(("AR Invoice")) & GoodsReceiptPO
-    GoodsReceiptPO --- IssueToProduction & APInvoice(("AP Invoice"))
-    IssueToProduction --- ReceiptFromProduction & JournalEntries(("Journal Entries"))
-    JournalEntries --- ReceiptFromProduction & CostAccounting(("Cost Accounting"))
-    CostAccounting --- GLAccountDetermination(("G/L Account<br>Determination"))
-    GLAccountDetermination --- GeneralLedgerAccounts(("General Ledger<br>Accounts"))
-    GeneralLedgerAccounts --- ChartOfAccounts(("Chart of Accounts"))
-    ReceiptFromProduction --- APInvoice & ProductReporting
-    ProductReporting --- FinancialReporting(("Financial<br>Reporting"))
-    FinancialReporting --- Reconciliation(("Reconciliation"))
-    Reconciliation --- CashManagement(("Cash Management"))
-    CashManagement --- APARIndicator(("AP / AR")) & IncomingPayments(("Incoming<br>Payments"))
-    APARIndicator --- ARInvoice
-    ARInvoice --- ApInvoice["ApInvoice"] & IncomingPayments
-    IncomingPayments --- OutgoingPayments(("Outgoing<br>Payments"))
-    OutgoingPayments --- APInvoice
+flowchart LR
+  Activities((Activities))
+  Customer((Customer))
+  Lead((Lead))
+  Supplier((Supplier))
+  BusinessPartnerMaster((Business Partner Master))
+  Opportunity((Opportunity))
+  Pricing((Pricing))
+  SalesQuotationCRM((Sales Quotation))
+  CustomerEquipmentCard((Customer Equipment Card))
+
+  ServiceCall((Service Call))
+  ServiceContract((Service Contract))
+  ServiceBilling((Service Billing))
+
+  %% Columna: CustomerEquipmentCard, ItemMaster, WarehouseManagement, SalesOrder, PurchaseOrder, ProductionOrder, DemandPlanning, BackorderReporting
+  CustomerEquipmentCard --- ItemMaster
+  ItemMaster --- WarehouseManagement
+  WarehouseManagement --- SalesOrder
+  SalesOrder --- PurchaseOrder
+  PurchaseOrder --- ProductionOrder
+  ProductionOrder --- DemandPlanning
+  DemandPlanning --- BackorderReporting
+
+  ItemMaster((Item Master))
+  WarehouseManagement((Warehouse Management))
+
+  SalesOrder((Sales Order))
+  DeliveryNote((Delivery Note))
+  ARInvoice((AR Invoice))
+  IncomingPayments((Incoming Payments))
+
+  PurchaseRequest((Purchase Request))
+  PurchaseQuotation((Purchase Quotation))
+  PurchaseOrder((Purchase Order))
+  GoodsReceiptPO((Goods Receipt PO))
+  APInvoice((AP Invoice))
+  OutgoingPayments((Outgoing Payments))
+
+  Sourcing((Sourcing))
+  ProductionOrder((Production Order))
+  IssueToProduction((Issue to Production))
+  ReceiptFromProduction((Receipt from Production))
+  ProductReporting((Product Reporting))
+  MaterialRequirementsPlanning((Material Requirements Planning))
+  BillOfMaterials((Bill of Materials))
+
+  DemandPlanning((Demand Planning))
+  BackorderReporting((Backorder Reporting))
+  InventoryAuditReport((Inventory Audit Report))
+  AccountBalancesReport((Account Balances Report))
+
+  ChartOfAccounts((Chart of Accounts))
+  GeneralLedgerAccounts((General Ledger Accounts))
+  GLAccountDetermination((G/L Account Determination))
+  CostAccounting((Cost Accounting))
+  JournalEntries((Journal Entries))
+  FinancialPostings((Financial Postings))
+
+  APAR((AP / AR))
+  CashManagement((Cash Management))
+  Reconciliation((Reconciliation))
+  FinancialReporting((Financial Reporting))
+
+  %% Flechas verdes: relación base en columna
+  Activities --> Customer
+  Customer --> Lead
+  Lead --> Supplier
+  Supplier --> BusinessPartnerMaster
+
+  linkStyle 0,1,2,3 stroke:#22c55e,stroke-width:2px,stroke-linecap:round;
+
+  %% Flechas amarillas: flujo horizontal a la derecha
+  Customer --> Opportunity
+  Opportunity --> Pricing
+  Pricing --> SalesQuotationCRM
+  SalesQuotationCRM --> SalesOrder
+  SalesOrder --> DeliveryNote
+  DeliveryNote --> ARInvoice
+  ARInvoice --> IncomingPayments
+
+  linkStyle 4,5,6,7,8,9,10 stroke:#facc15,stroke-width:2px,stroke-linecap:round;
+
+  %% Flechas azules: flujo de compras
+  PurchaseRequest --> PurchaseQuotation
+  PurchaseQuotation --> PurchaseOrder
+  PurchaseOrder --> GoodsReceiptPO
+  GoodsReceiptPO --> APInvoice
+  APInvoice --> OutgoingPayments
+
+  linkStyle 11,12,13,14,15 stroke:#3b82f6,stroke-width:2px,stroke-linecap:round;
+
+  %% Flechas moradas: flujo de producción e inventario
+  BillOfMaterials --> MaterialRequirementsPlanning
+  MaterialRequirementsPlanning --> Sourcing
+  Sourcing --> ProductionOrder
+  ProductionOrder --> IssueToProduction
+  IssueToProduction --> ReceiptFromProduction
+  ReceiptFromProduction --> ProductReporting
+
+  linkStyle 16,17,18,19,20,21 stroke:#4c1d95,stroke-width:2px,stroke-linecap:round;
+
+  %% Flechas rojas: flujo financiero y contable
+  ChartOfAccounts --> GeneralLedgerAccounts
+  GeneralLedgerAccounts --> GLAccountDetermination
+  GLAccountDetermination --> CostAccounting
+  CostAccounting --> JournalEntries
+  JournalEntries --> ReceiptFromProduction
+  ReceiptFromProduction ---> APInvoice
+  APInvoice --> APAR
+  APAR --> CashManagement
+  CashManagement --> Reconciliation
+  Reconciliation --> FinancialReporting
+  ReceiptFromProduction --> ProductReporting
+
+  linkStyle 22,23,24,25,26,27,28,29,30,31 stroke:#dc2626,stroke-width:2px,stroke-linecap:round;
+
+  %% Flechas rosadas: reportes operativos y financieros
+  BackorderReporting --> InventoryAuditReport
+  InventoryAuditReport --> AccountBalancesReport
+  AccountBalancesReport --> ProductReporting
+  ProductReporting --> FinancialReporting
+
+  linkStyle 32,33,34,35,36 stroke:#ec4899,stroke-width:2px,stroke-linecap:round;
+
+  ServiceCall --> ServiceContract
+  ServiceContract --> ServiceBilling
+  ServiceBilling --> FinancialPostings
+  FinancialPostings --> ARInvoice
+
+   
