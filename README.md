@@ -59,20 +59,33 @@ flowchart LR
   Reconciliation((Reconciliation))
   FinancialReporting((Financial Reporting))
 
-  ####### verde
+  %% Línea sólida verde
+  Activities --> Customer
+  Customer --> Lead
+  Lead --> Supplier
+  Supplier --> BusinessPartnerMaster
 
-  Activities --- Customer
-  Customer --- Lead
-  Lead --- Supplier
-  Supplier --- BusinessPartnerMaster
+  linkStyle 0,1,2,3 stroke:#22c55e,stroke-width:2px,stroke-linecap:round;
 
-####### amarillo
+  %% Línea punteada amarilla
 
   Customer -.-> Opportunity
   Opportunity -.-> Pricing
   Pricing -.-> SalesQuotationCRM
   SalesQuotationCRM -.-> SalesOrder
-  Supplier -.-> CustomerEquipmentCard
+  SalesOrder -.-> DeliveryNote
+  DeliveryNote -.-> ARInvoice
+  ARInvoice -.-> IncomingPayments
+
+
+  Lead --> Opportunity
+  PurchaseRequest --> PurchaseQuotation
+  PurchaseQuotation --> PurchaseOrder
+  SalesOrder --- PurchaseOrder
+  PurchaseOrder --> GoodsReceiptPO
+  GoodsReceiptPO --> APInvoice
+  APInvoice --> OutgoingPayments
+  APInvoice -.-> APAR
 
   CustomerEquipmentCard -.-> ServiceCall
   ServiceCall -.-> ServiceContract
@@ -89,14 +102,7 @@ flowchart LR
   ARInvoice --> IncomingPayments
   ARInvoice -.-> APAR
 
-  Lead --> PurchaseRequest
-  PurchaseRequest --> PurchaseQuotation
-  PurchaseQuotation --> PurchaseOrder
-  SalesOrder --- PurchaseOrder
-  PurchaseOrder --> GoodsReceiptPO
-  GoodsReceiptPO --> APInvoice
-  APInvoice --> OutgoingPayments
-  APInvoice -.-> APAR
+  
 
   Supplier --> Sourcing
   Sourcing --> ProductionOrder
