@@ -87,4 +87,14 @@ flowchart LR
 
   linkStyle 11,12,13,14,15 stroke:#3b82f6,stroke-width:2px,stroke-linecap:round;
 
+  %% Flechas moradas: flujo de producción e inventario
+  BillOfMaterials --> MaterialRequirementsPlanning
+  MaterialRequirementsPlanning --> Sourcing
+  Sourcing --> ProductionOrder
+  ProductionOrder --> IssueToProduction
+  IssueToProduction --> ReceiptFromProduction
+  ReceiptFromProduction --> ProductReporting
+
+  linkStyle 16,17,18,19,20,21 stroke:#4c1d95,stroke-width:2px,stroke-linecap:round;
+
 
